@@ -2,33 +2,28 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import TYPE_CHECKING, Iterable
 
 from singer_sdk.streams import Stream
+
+from tap_msaccess import utils
+
+if TYPE_CHECKING:
+    from access_parser.access_parser import AccessTable
 
 
 class MSAccessStream(Stream):
     """Stream class for MSAccess streams."""
 
-    def get_records(
+    table: AccessTable
+
+    def get_records(  # noqa: D102
         self,
         context: dict | None,  # noqa: ARG002
     ) -> Iterable[dict]:
-        """Return a generator of record-type dictionary objects.
+        table_data = self.table.parse()
+        column_names = [utils.sanitise_name(name) for name in table_data]
+        column_data = table_data.values()
 
-        The optional `context` argument is used to identify a specific slice of the
-        stream if partitioning is required for the stream. Most implementations do not
-        require partitioning and should ignore the `context` argument.
-
-        Args:
-            context: Stream partition or context dictionary.
-
-        Raises:
-            NotImplementedError: If the implementation is TODO
-        """
-        # TODO: Write logic to extract data from the upstream source.
-        # records = mysource.getall()  # noqa: ERA001
-        # for record in records:
-        #     yield record.to_dict()  # noqa: ERA001
-        errmsg = "The method is not yet implemented (TODO)"
-        raise NotImplementedError(errmsg)
+        for data in zip(*column_data):
+            yield {name: data[i] for i, name in enumerate(column_names)}
