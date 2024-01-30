@@ -4,39 +4,39 @@
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
-<!--
-
-Developer TODO: Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
-
 ## Installation
 
-Install from PyPi:
-
 ```bash
-pipx install tap-msaccess
+# pip
+pip install git+https://github.com/Matatika/tap-msaccess
+
+pip install git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with fsspec http(s) support
+pip install git+https://github.com/Matatika/tap-msaccess s3fs  # with fsspec s3 support
+pip install git+https://github.com/Matatika/tap-msaccess adlfs  # with fsspec azure support
+
+# pipx
+pipx install git+https://github.com/Matatika/tap-msaccess
+
+pipx install git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with fsspec http(s) support
+pipx install git+https://github.com/Matatika/tap-msaccess s3fs  # with fsspec s3 support
+pipx install git+https://github.com/Matatika/tap-msaccess adlfs  # with fsspec azure support
+
+# poetry
+poetry add git+https://github.com/Matatika/tap-msaccess
+
+poetry add git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with fsspec http(s) support
+poetry add git+https://github.com/Matatika/tap-msaccess s3fs  # with fsspec s3 support
+poetry add git+https://github.com/Matatika/tap-msaccess adlfs  # with fsspec azure support
 ```
-
-Install from GitHub:
-
-```bash
-pipx install git+https://github.com/ORG_NAME/tap-msaccess.git@main
-```
-
--->
 
 ## Configuration
 
 ### Accepted Config Options
 
-<!--
-Developer TODO: Provide a list of config options accepted by the tap.
-
-This section can be created by copy-pasting the CLI output from:
-
-```
-tap-msaccess --about --format=markdown
-```
--->
+Name | Required | Default | Description
+--- | --- | --- | ---
+`database_file` | Yes |  | Local or URL path to a Microsoft Access database `.mdb` or `.accdb` file
+\* | | | Options for the [`fsspec`](https://filesystem-spec.readthedocs.io/en/latest/) storage backend implementation dictated by the `database_file` URL protocol, such as [HTTP(S)](https://filesystem-spec.readthedocs.io/en/latest/api.html?highlight=http#fsspec.implementations.http.HTTPFileSystem), [S3](https://s3fs.readthedocs.io/en/latest/) or [Azure](https://github.com/fsspec/adlfs?tab=readme-ov-file#readme) (see [built-in implementations](https://filesystem-spec.readthedocs.io/en/latest/api.html?highlight=http#built-in-implementations) and [other known implementations](https://filesystem-spec.readthedocs.io/en/latest/api.html?highlight=http#other-known-implementations) for more information)
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -45,17 +45,41 @@ tap is available by running:
 tap-msaccess --about
 ```
 
+### Examples
+
+#### Local
+
+Key | Value
+--- | ---
+`database_file` | `sample_db/Books.accdb`<br>`<absolute path to repo>/sample_db/Books.accdb`<br>`local://sample_db/Books.accdb`<br>`local://<absolute path to repo>/sample_db/Books.accdb`<br>`file://sample_db/Books.accdb`<br>`file://<absolute path to repo>/sample_db/Books.accdb`
+
+#### HTTP(S)
+
+Key | Value
+--- | ---
+`database_file` | `http://github.com/Matatika/tap-msaccess/raw/main/sample_db/Books.accdb`<br>`https://github.com/Matatika/tap-msaccess/raw/main/sample_db/Books.accdb`
+
+#### S3
+
+Public read-only bucket
+
+Key | Value
+--- | ---
+`database_file` | `s3://<bucket name>/<file path>`
+
+#### Azure
+
+Key | Value
+--- | ---
+`database_file` | `az://<container name>/<file path>`
+`account_name` | `<account name>`
+`account_key` | `<account key>`
+
 ### Configure using environment variables
 
 This Singer tap will automatically import any environment variables within the working directory's
 `.env` if the `--config=ENV` is provided, such that config values will be considered if a matching
 environment variable is set either in the terminal context or in the `.env` file.
-
-### Source Authentication and Authorization
-
-<!--
-Developer TODO: If your tap requires special access on the source system, or any special authentication requirements, provide those here.
--->
 
 ## Usage
 
@@ -99,12 +123,6 @@ poetry run tap-msaccess --help
 
 _**Note:** This tap will work in any Singer environment and does not require Meltano.
 Examples here are for convenience and to streamline end-to-end orchestration scenarios._
-
-<!--
-Developer TODO:
-Your project comes with a custom `meltano.yml` project file already created. Open the `meltano.yml` and follow any "TODO" items listed in
-the file.
--->
 
 Next, install Meltano (if you haven't already) and any needed plugins:
 
