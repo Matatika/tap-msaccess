@@ -5,13 +5,13 @@ from __future__ import annotations
 from functools import cached_property
 
 import access_parser.utils
-from access_parser import AccessParser
-from access_parser.access_parser import AccessTable, TableObj
+import fsspec
 from singer_sdk import Tap
 from singer_sdk import typing as th  # JSON schema typing helpers
 
 from tap_msaccess import utils
 from tap_msaccess.client import MSAccessStream
+from tap_msaccess.parser import AccessParser
 
 
 class TapMSAccess(Tap):
@@ -31,7 +31,10 @@ class TapMSAccess(Tap):
     @cached_property
     def db(self) -> AccessParser:
         """Database file parser."""
-        return AccessParser(self.config["database_file"])
+        config = {**self.config}
+        database_file = config.pop("database_file")
+
+        return AccessParser(fsspec.open(database_file, **config))
 
     def discover_streams(self) -> list[MSAccessStream]:
         """Return a list of discovered streams.
@@ -42,7 +45,7 @@ class TapMSAccess(Tap):
         return [self._get_stream(table_name) for table_name in self.db.catalog]
 
     def _get_stream(self, table_name: str) -> MSAccessStream:
-        table = self._parse_table(table_name)
+        table = self.db.parse_table_obj(table_name)
         properties = [
             th.Property(
                 utils.sanitise_name(column["col_name_str"]),
@@ -57,40 +60,6 @@ class TapMSAccess(Tap):
         stream.table = table
 
         return stream
-
-    def _parse_table(self, table_name: str) -> AccessTable:
-        table_offset = self.db.catalog.get(table_name)
-
-        if not table_offset:
-            msg = f"Could not find table '{table_name}' in database"
-            raise ValueError(msg)
-
-        table_offset = table_offset * self.db.page_size
-        table = self.db._tables_with_data.get(table_offset)  # noqa: SLF001
-
-        if not table:
-            table_def = self.db._table_defs.get(table_offset)  # noqa: SLF001
-            if not table_def:
-                msg = f"Could not find table '{table_name}' with offset '{table_offset}' in database"  # noqa: E501
-                raise ValueError(msg)
-
-            table = TableObj(offset=table_offset, val=table_def)
-            self.logger.warning("Table '%s' has no data", table_name)
-
-        props = (
-            self.db.extra_props[table_name]
-            if table_name != "MSysObjects" and table_name in self.db.extra_props
-            else None
-        )
-
-        return AccessTable(
-            table,
-            self.db.version,
-            self.db.page_size,
-            self.db._data_pages,  # noqa: SLF001
-            self.db._table_defs,  # noqa: SLF001
-            props,
-        )
 
 
 def _parse_jsonschema_type(type_id: int) -> th.JSONTypeHelper:
