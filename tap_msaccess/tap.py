@@ -45,7 +45,7 @@ class TapMSAccess(Tap):
         return [self._get_stream(table_name) for table_name in self.db.catalog]
 
     def _get_stream(self, table_name: str) -> MSAccessStream:
-        table = self.db.parse_table_obj(table_name)
+        table = self.db.get_table(table_name)
         properties = [
             th.Property(
                 utils.sanitise_name(column["col_name_str"]),
@@ -58,6 +58,7 @@ class TapMSAccess(Tap):
 
         stream = MSAccessStream(self, schema, utils.sanitise_name(table_name))
         stream.table = table
+        stream.primary_keys = table.primary_keys
 
         return stream
 
