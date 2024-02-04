@@ -3,6 +3,7 @@
 from singer_sdk.testing import SuiteConfig, get_tap_test_class
 
 from tap_msaccess.tap import TapMSAccess
+from tests import custom_tap_tests
 
 SAMPLE_CONFIG = {"database_file": "sample_db/Books.accdb"}
 
@@ -10,6 +11,7 @@ SAMPLE_CONFIG = {"database_file": "sample_db/Books.accdb"}
 TestTapMSAccess = get_tap_test_class(
     tap_class=TapMSAccess,
     config=SAMPLE_CONFIG,
+    custom_suites=[custom_tap_tests],
     suite_config=SuiteConfig(
         ignore_no_records_for_streams=[
             "MSysComplexType_UnsignedByte",
