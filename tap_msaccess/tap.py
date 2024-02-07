@@ -24,7 +24,29 @@ class TapMSAccess(Tap):
             "database_file",
             th.StringType,
             required=True,
-            description="Path to a Microsoft Access database `.mdb` or `.accdb` file",
+            description=(
+                "Local or URL path to a Microsoft Access database `.mdb` or `.accdb` "
+                "file"
+            ),
+        ),
+        th.Property(
+            "connection_params",
+            th.ObjectType(additional_properties=True),
+            description=(
+                "Any parameters for the "
+                "[`fsspec`](https://filesystem-spec.readthedocs.io/en/latest/) storage "
+                "backend implementation dictated by the `database_file` URL protocol, "
+                "such as "
+                "[HTTP(S)](https://filesystem-spec.readthedocs.io/en/latest/api.html#fsspec.implementations.http.HTTPFileSystem)"
+                ", "
+                "[S3](https://s3fs.readthedocs.io/en/latest/) or "
+                "[Azure](https://github.com/fsspec/adlfs?tab=readme-ov-file#readme) "
+                "(see "
+                "[built-in implementations](https://filesystem-spec.readthedocs.io/en/latest/api.html#built-in-implementations)"
+                " and "
+                "[other known implementations](https://filesystem-spec.readthedocs.io/en/latest/api.html#other-known-implementations)"
+                " for more information)"
+            ),
         ),
     ).to_dict()
 
@@ -33,8 +55,17 @@ class TapMSAccess(Tap):
         """Database file parser."""
         config = {**self.config}
         database_file = config.pop("database_file")
+        connection_params = config.pop("connection_params", {})
 
-        return AccessParser(fsspec.open(database_file, **config))
+        return AccessParser(
+            fsspec.open(
+                database_file,
+                **{
+                    **config,
+                    **connection_params,
+                },
+            )
+        )
 
     def discover_streams(self) -> list[MSAccessStream]:
         """Return a list of discovered streams.

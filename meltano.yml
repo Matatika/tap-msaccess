@@ -17,6 +17,8 @@ plugins:
     - stream-maps
     settings:
     - name: database_file
+    - name: connection_params
+      kind: object
   loaders:
   - name: target-jsonl
     variant: andyh1203
