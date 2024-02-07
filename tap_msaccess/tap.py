@@ -25,7 +25,7 @@ class TapMSAccess(Tap):
             th.StringType,
             required=True,
             description=(
-                "Local or URL path to a Microsoft Access database `.mdb` or `.accdb` "
+                "Local path or URL to a Microsoft Access database `.mdb` or `.accdb` "
                 "file"
             ),
         ),
