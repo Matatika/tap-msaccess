@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-msaccess"
-version = "0.0.1"
+version = "0.1.0"
 description = "`tap-msaccess` is a Singer tap for MSAccess, built with the Meltano Singer SDK."
 readme = "README.md"
 authors = ["Reuben Frankel <rfrankel@matatika.com>"]
