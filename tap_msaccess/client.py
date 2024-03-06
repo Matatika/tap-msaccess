@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING
 
 from singer_sdk.streams import Stream
+from typing_extensions import override
 
 from tap_msaccess import utils
 
@@ -17,10 +18,8 @@ class MSAccessStream(Stream):
 
     table: AccessTable
 
-    def get_records(  # noqa: D102
-        self,
-        context: dict | None,  # noqa: ARG002
-    ) -> Iterable[dict]:
+    @override
+    def get_records(self, context):
         table_data = self.table.parse()
         column_names = [utils.sanitise_name(name) for name in table_data]
         column_data = table_data.values()

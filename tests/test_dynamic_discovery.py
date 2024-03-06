@@ -1,5 +1,3 @@
-# ruff: noqa: D101, D102, S101
-
 """Tests tap dynamic discovery."""
 
 from itertools import zip_longest
@@ -11,7 +9,7 @@ from singer_sdk.testing.templates import TapTestTemplate
 class TapDynamicDiscoveryTest(TapTestTemplate):
     name = "dynamic_discovery"
 
-    def test(self) -> None:  # noqa: PLR0915
+    def test(self):
         streams = iter(self.tap.discover_streams())
         stream = next(streams, None)
 

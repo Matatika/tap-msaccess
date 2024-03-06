@@ -8,6 +8,7 @@ import access_parser.utils
 import fsspec
 from singer_sdk import Tap
 from singer_sdk import typing as th  # JSON schema typing helpers
+from typing_extensions import override
 
 from tap_msaccess import utils
 from tap_msaccess.client import MSAccessStream
@@ -51,7 +52,7 @@ class TapMSAccess(Tap):
     ).to_dict()
 
     @cached_property
-    def db(self) -> AccessParser:
+    def db(self):
         """Database file parser."""
         config = {**self.config}
         database_file = config.pop("database_file")
@@ -67,12 +68,8 @@ class TapMSAccess(Tap):
             )
         )
 
-    def discover_streams(self) -> list[MSAccessStream]:
-        """Return a list of discovered streams.
-
-        Returns:
-            A list of discovered streams.
-        """
+    @override
+    def discover_streams(self):
         return [self._get_stream(table_name) for table_name in self.db.catalog]
 
     def _get_stream(self, table_name: str) -> MSAccessStream:
