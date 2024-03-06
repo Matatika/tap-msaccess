@@ -71,7 +71,16 @@ Public read-only bucket
 
 Key | Value
 --- | ---
+`database_file` | `s3://tap-msaccess/Books.accdb`
+`anon` | `true`
+
+Private bucket
+
+Key | Value
+--- | ---
 `database_file` | `s3://<bucket name>/<file path>`
+`key` | `<access key id>`
+`secret` | `<secret access key>`
 
 #### Azure
 
