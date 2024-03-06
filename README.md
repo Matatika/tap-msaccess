@@ -16,23 +16,23 @@ Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 # pip
 pip install git+https://github.com/Matatika/tap-msaccess
 
-pip install git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with fsspec http(s) support
-pip install git+https://github.com/Matatika/tap-msaccess s3fs  # with fsspec s3 support
-pip install git+https://github.com/Matatika/tap-msaccess adlfs  # with fsspec azure support
+pip install git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with http(s) support
+pip install git+https://github.com/Matatika/tap-msaccess fsspec[s3]  # with s3 support
+pip install git+https://github.com/Matatika/tap-msaccess fsspec[abfs]  # with azure support
 
 # pipx
 pipx install git+https://github.com/Matatika/tap-msaccess
 
-pipx install git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with fsspec http(s) support
-pipx install git+https://github.com/Matatika/tap-msaccess s3fs  # with fsspec s3 support
-pipx install git+https://github.com/Matatika/tap-msaccess adlfs  # with fsspec azure support
+pipx install git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with http(s) support
+pipx install git+https://github.com/Matatika/tap-msaccess fsspec[s3]  # with s3 support
+pipx install git+https://github.com/Matatika/tap-msaccess fsspec[abfs]  # with azure support
 
 # poetry
 poetry add git+https://github.com/Matatika/tap-msaccess
 
-poetry add git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with fsspec http(s) support
-poetry add git+https://github.com/Matatika/tap-msaccess s3fs  # with fsspec s3 support
-poetry add git+https://github.com/Matatika/tap-msaccess adlfs  # with fsspec azure support
+poetry add git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with http(s) support
+poetry add git+https://github.com/Matatika/tap-msaccess fsspec[s3]  # with s3 support
+poetry add git+https://github.com/Matatika/tap-msaccess fsspec[abfs]  # with azure support
 ```
 
 ## Configuration
