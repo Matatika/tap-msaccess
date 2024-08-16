@@ -63,7 +63,7 @@ Key | Value
 
 Key | Value
 --- | ---
-`database_file` | `http://github.com/Matatika/tap-msaccess/raw/main/sample_db/Books.accdb`<br>`https://github.com/Matatika/tap-msaccess/raw/main/sample_db/Books.accdb`
+`database_file` | `http://github.com/Matatika/tap-msaccess/raw/main/sample_db/Books.accdb`<br>`https://github.com/Matatika/tap-msaccess/raw/main/sample_db/Books.accdb`<br>`https://matatikaartifacts.blob.core.windows.net/tap-msaccess/Books.accdb`
 
 #### S3
 
@@ -83,6 +83,15 @@ Key | Value
 `secret` | `<secret access key>`
 
 #### Azure
+
+Public read-only storage blob
+
+Key | Value
+--- | ---
+`database_file` | `az://tap-msaccess/Books.accdb`
+`account_name` | `matatikaartifacts`
+
+Private storage blob
 
 Key | Value
 --- | ---
