@@ -5,8 +5,8 @@ from access_parser import access_parser
 from fsspec.core import OpenFile
 
 
-class AccessParser(access_parser.AccessParser):  # noqa: D101
-    def __init__(self, db_file: OpenFile) -> None:  # noqa: D107
+class AccessParser(access_parser.AccessParser):
+    def __init__(self, db_file: OpenFile) -> None:
         with db_file.open() as f:
             self.db_data = f.read()
 
