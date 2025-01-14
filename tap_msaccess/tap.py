@@ -11,8 +11,8 @@ from singer_sdk import typing as th  # JSON schema typing helpers
 from typing_extensions import override
 
 from tap_msaccess import utils
+from tap_msaccess._parser import AccessParser
 from tap_msaccess.client import MSAccessStream
-from tap_msaccess.parser import AccessParser
 
 
 class TapMSAccess(Tap):
