@@ -39,9 +39,12 @@ jobs:
         poetry env use ${{ matrix.python-version }}
         poetry install
         poetry run pip install fsspec[s3]
+    - name: Configure connection params
+      if: ${{ matrix.config.connection-params }}
+      run: |
+        echo 'TAP_MSACCESS_CONNECTION_PARAMS=${{ matrix.config.connection-params }}' >> $GITHUB_ENV
     - name: Test with pytest
       env:
         TAP_MSACCESS_DATABASE_FILE: ${{ matrix.config.database-file }}
-        TAP_MSACCESS_CONNECTION_PARAMS: ${{ matrix.config.connection-params }}
       run: |
         poetry run pytest
