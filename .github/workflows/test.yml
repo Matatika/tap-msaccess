@@ -25,6 +25,8 @@ jobs:
         - database-file: sample_db/Books.accdb
         - database-file: s3://tap-msaccess/Books.accdb
           connection-params: '{"anon": true}'
+        - database-file: az://tap-msaccess/Books.accdb
+          connection-params: '{"account_name": "matatikaartifacts"}'
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -38,7 +40,7 @@ jobs:
       run: |
         poetry env use ${{ matrix.python-version }}
         poetry install
-        poetry run pip install fsspec[s3]
+        poetry run pip install fsspec[s3,abfs]
     - name: Configure connection params
       if: ${{ matrix.config.connection-params }}
       run: |
