@@ -5,7 +5,7 @@ from singer_sdk.testing import SuiteConfig, get_tap_test_class
 from tap_msaccess.tap import TapMSAccess
 from tests import custom_tap_tests
 
-SAMPLE_CONFIG = {"database_file": "sample_db/Books.accdb"}
+SAMPLE_CONFIG = {}
 
 # Run standard built-in tap tests from the SDK:
 TestTapMSAccess = get_tap_test_class(
