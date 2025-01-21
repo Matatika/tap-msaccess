@@ -21,6 +21,10 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        config:
+        - database-file: sample_db/Books.accdb
+        - database-file: s3://tap-msaccess/Books.accdb
+          connection-params: '{"anon": true}'
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -36,5 +40,8 @@ jobs:
         poetry install
         poetry run pip install fsspec[s3]
     - name: Test with pytest
+      env:
+        TAP_MSACCESS_DATABASE_FILE: ${{ matrix.config.database-file }}
+        TAP_MSACCESS_CONNECTION_PARAMS: ${{ matrix.config.connection-params }}
       run: |
         poetry run pytest
