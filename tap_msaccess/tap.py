@@ -23,7 +23,7 @@ class TapMSAccess(Tap):
     config_jsonschema = th.PropertiesList(
         th.Property(
             "database_file",
-            th.StringType,
+            th.StringType(pattern=r"\.(accdb)|(mdb)$"),
             required=True,
             description=(
                 "Local path or URL to a Microsoft Access database `.mdb` or `.accdb` "
