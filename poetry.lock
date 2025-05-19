@@ -1153,14 +1153,14 @@ files = [
 
 [[package]]
 name = "singer-sdk"
-version = "0.46.0"
+version = "0.46.3"
 description = "A framework for building Singer taps"
 optional = false
 python-versions = ">=3.9"
 groups = ["main", "dev"]
 files = [
-    {file = "singer_sdk-0.46.0-py3-none-any.whl", hash = "sha256:f49c5b53cb7bfcfb6ca30cbd77a399f2174e1d49eb93fea2cdd2bd75534dee7e"},
-    {file = "singer_sdk-0.46.0.tar.gz", hash = "sha256:e36a21204ce801fe2c58646b75698aa15d92d03db918372eb7b3d3047b6126a1"},
+    {file = "singer_sdk-0.46.3-py3-none-any.whl", hash = "sha256:0fcb7c4bf29cb3b1ee74df7f3f0cc6eeee76a5064a4306293086edbd4e1b1d3f"},
+    {file = "singer_sdk-0.46.3.tar.gz", hash = "sha256:14bcc8c76ea91c9df9ee734be2d5ee4a275a80a9bbbba4729e02928244d162b4"},
 ]
 
 [package.dependencies]
@@ -1190,7 +1190,7 @@ universal-pathlib = ">=0.2.6"
 faker = ["faker (>=22.5)"]
 jwt = ["cryptography (>=3.4.6)", "pyjwt (>=2.4,<3.0)"]
 msgspec = ["msgspec (>=0.19.0)"]
-parquet = ["numpy (>=1.22)", "pyarrow (>=13)"]
+parquet = ["pyarrow (>=15)"]
 s3 = ["s3fs (>=2024.9.0)"]
 ssh = ["paramiko (>=3.3.0)"]
 testing = ["pytest (>=7.2.1)"]
@@ -1457,4 +1457,4 @@ s3 = ["fs-s3fs"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "3d9fc64b479a8bfef3b3c6d192814ad18c7f69eaeac4dde9da3cfb675b93ded4"
+content-hash = "11346608f21c3f337b461995513ac64ac4189f8c61e6c4b1488a2d751d71e057"
