@@ -6,9 +6,21 @@ name: Test tap-msaccess
 on:
   push:
     branches: [main]
-    paths-ignore: [README.md]
+    paths:
+    - .github/workflows/test.yml
+    - sample_db/**
+    - tap_msaccess/**
+    - tests/**
+    - poetry.lock
+    - pyproject.toml
   pull_request:
-    paths-ignore: [README.md]
+    paths:
+    - .github/workflows/test.yml
+    - sample_db/**
+    - tap_msaccess/**
+    - tests/**
+    - poetry.lock
+    - pyproject.toml
   schedule:
   - cron: 0 9 * * *
 
