@@ -27,7 +27,7 @@ python = "^3.9"
 singer-sdk = "^0.48.1"
 fs-s3fs = { version = "~=1.1.1", optional = true }
 access-parser = {git = "https://github.com/Matatika/access_parser.git"}
-fsspec = "^2025.9.0"
+fsspec = "^2025.10.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.4.0"
