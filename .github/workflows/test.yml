@@ -38,7 +38,7 @@ jobs:
         - database-file: s3://tap-msaccess/Books.accdb
           connection-params: '{"anon": true}'
         - database-file: az://tap-msaccess/Books.accdb
-          connection-params: '{"account_name": "matatikaartifacts"}'
+          connection-params: '{"account_name": "matatikaartifacts","anon": true}'
     steps:
     - uses: actions/checkout@v6
     - name: Set up Python ${{ matrix.python-version }}
