@@ -1,4 +1,1 @@
-"""Tap for MSAccess.
-
-Copyright (c) 2026 Meltano.
-"""
+"""Tap for MSAccess."""

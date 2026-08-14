@@ -1,7 +1,4 @@
-"""Tests tap dynamic discovery.
-
-Copyright (c) 2026 Meltano.
-"""
+"""Tests tap dynamic discovery."""
 
 from itertools import zip_longest
 
