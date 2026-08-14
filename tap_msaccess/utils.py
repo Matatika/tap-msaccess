@@ -1,4 +1,7 @@
-"""tap-msaccess utilities."""
+"""tap-msaccess utilities.
+
+Copyright (c) 2026 Meltano.
+"""
 
 import re
 
