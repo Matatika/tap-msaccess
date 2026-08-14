@@ -1,4 +1,7 @@
-"""Custom client handling, including MSAccessStream base class."""
+"""Custom client handling, including MSAccessStream base class.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from __future__ import annotations
 

@@ -1,4 +1,7 @@
-"""MSAccess entry point."""
+"""MSAccess entry point.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from __future__ import annotations
 

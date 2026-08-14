@@ -1,4 +1,7 @@
-"""Test suite for tap-msaccess."""
+"""Test suite for tap-msaccess.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from singer_sdk.testing.suites import TestSuite
 
