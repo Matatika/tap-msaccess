@@ -1,7 +1,6 @@
-"""MSAccess database file parser.
+# Copyright (c) 2026 Meltano.
 
-Copyright (c) 2026 Meltano.
-"""
+"""MSAccess database file parser."""
 
 import access_parser.utils as access_parser_utils
 from access_parser import access_parser
