@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Meltano.
+
 """Test suite for tap-msaccess."""
 
 from singer_sdk.testing.suites import TestSuite

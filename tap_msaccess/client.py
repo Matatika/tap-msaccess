@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Meltano.
+
 """Custom client handling, including MSAccessStream base class."""
 
 from __future__ import annotations
