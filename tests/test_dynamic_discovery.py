@@ -9,9 +9,12 @@ from singer_sdk.testing.templates import TapTestTemplate
 
 
 class TapDynamicDiscoveryTest(TapTestTemplate):
+    """Test dynamic discovery of streams and their schemas."""
+
     name = "dynamic_discovery"
 
-    def test(self):
+    def test(self):  # noqa: PLR0915
+        """Assert each discovered stream in order, with its keys and schema."""
         streams = iter(self.tap.discover_streams())
         stream = next(streams, None)
 
