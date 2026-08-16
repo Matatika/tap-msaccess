@@ -54,6 +54,11 @@ ignore = [
 ]
 select = ["ALL"]
 
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "S101",  # assert
+]
+
 [tool.ruff.lint.flake8-annotations]
 allow-star-arg-any = true
 
