@@ -18,7 +18,7 @@ tabulate = "*"
 type = "git"
 url = "https://github.com/Matatika/access_parser.git"
 reference = "HEAD"
-resolved_reference = "cf03c0dd5b116999e895b5dc45faf5862509655b"
+resolved_reference = "74b7c8965c04c251a09530636dd795ed9430cce6"
 
 [[package]]
 name = "appdirs"
