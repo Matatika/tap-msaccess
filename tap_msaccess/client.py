@@ -26,5 +26,5 @@ class MSAccessStream(Stream):
         column_names = [utils.sanitise_name(name) for name in table_data]
         column_data = table_data.values()
 
-        for data in zip(*column_data):
+        for data in zip(*column_data, strict=False):
             yield {name: data[i] for i, name in enumerate(column_names)}
