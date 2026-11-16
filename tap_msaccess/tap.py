@@ -92,7 +92,7 @@ class TapMSAccess(Tap):
         return stream
 
 
-def _parse_jsonschema_type(type_id: int) -> th.JSONTypeHelper:
+def _parse_jsonschema_type(type_id: int) -> type[th.JSONTypeHelper]:
     if type_id is access_parser.utils.TYPE_BOOLEAN:
         return th.BooleanType
 

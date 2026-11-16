@@ -76,6 +76,10 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
+[[tool.mypy.overrides]]
+module = ["access_parser.*", "fsspec.*"]
+ignore_missing_imports = true
+
 [tool.ty.rules]
 missing-override-decorator = "error"
 unused-type-ignore-comment = "ignore"
