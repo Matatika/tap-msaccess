@@ -4,8 +4,8 @@
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
-[![Python version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FMatatika%2Ftap-msaccess%2Fmain%2Fpyproject.toml&query=tool.poetry.dependencies.python&label=python)](https://docs.python.org/3/)
-[![Singer SDK version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FMatatika%2Ftap-msaccess%2Fmain%2Fpyproject.toml&query=tool.poetry.dependencies%5B%22singer-sdk%22%5D&label=singer-sdk)](https://sdk.meltano.com/en/latest/)
+[![Python version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FMatatika%2Ftap-msaccess%2Fmain%2Fpyproject.toml&query=project.requires-python&label=python)](https://docs.python.org/3/)
+[![Singer SDK version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FMatatika%2Ftap-msaccess%2Fmain%2Fpyproject.toml&query=project.dependencies%5B0%5D&label=singer-sdk)](https://sdk.meltano.com/en/latest/)
 [![License](https://img.shields.io/github/license/Matatika/tap-msaccess)](https://github.com/Matatika/tap-msaccess/blob/main/LICENSE)
 [![Code style](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fastral-sh%2Fruff%2Fmain%2Fassets%2Fbadge%2Fformat.json)](https://docs.astral.sh/ruff/)
 [![Test tap-msaccess](https://github.com/Matatika/tap-msaccess/actions/workflows/test.yml/badge.svg)](https://github.com/Matatika/tap-msaccess/actions/workflows/test.yml)
@@ -27,12 +27,12 @@ pipx install git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with h
 pipx install git+https://github.com/Matatika/tap-msaccess fsspec[s3]  # with s3 support
 pipx install git+https://github.com/Matatika/tap-msaccess fsspec[abfs]  # with azure support
 
-# poetry
-poetry add git+https://github.com/Matatika/tap-msaccess
+# uv
+uv add git+https://github.com/Matatika/tap-msaccess
 
-poetry add git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with http(s) support
-poetry add git+https://github.com/Matatika/tap-msaccess fsspec[s3]  # with s3 support
-poetry add git+https://github.com/Matatika/tap-msaccess fsspec[abfs]  # with azure support
+uv add git+https://github.com/Matatika/tap-msaccess fsspec[http]  # with http(s) support
+uv add git+https://github.com/Matatika/tap-msaccess fsspec[s3]  # with s3 support
+uv add git+https://github.com/Matatika/tap-msaccess fsspec[abfs]  # with azure support
 ```
 
 ## Configuration
@@ -41,7 +41,7 @@ poetry add git+https://github.com/Matatika/tap-msaccess fsspec[abfs]  # with azu
 
 Name | Required | Default | Description
 --- | --- | --- | ---
-`database_file` | Yes |  | Local or URL path to a Microsoft Access database `.mdb` or `.accdb` file
+`database_file` | Yes | | Local or URL path to a Microsoft Access database `.mdb` or `.accdb` file
 \*<br>`connection_params` | | | Any parameters for the [`fsspec`](https://filesystem-spec.readthedocs.io/en/latest/) storage backend implementation dictated by the `database_file` URL protocol, such as [HTTP(S)](https://filesystem-spec.readthedocs.io/en/latest/api.html#fsspec.implementations.http.HTTPFileSystem), [S3](https://s3fs.readthedocs.io/en/latest/) or [Azure](https://github.com/fsspec/adlfs?tab=readme-ov-file#readme) (see [built-in implementations](https://filesystem-spec.readthedocs.io/en/latest/api.html#built-in-implementations) and [other known implementations](https://filesystem-spec.readthedocs.io/en/latest/api.html#other-known-implementations) for more information)<br><br>These can be passed directly as top-level config (i.e. same as `database_file`) or via the `connection_params` setting as a JSON-object value - if both are provided, the configurations are merged, with values from `connection_params` taking precedence
 
 A full list of supported settings and capabilities for this
@@ -123,24 +123,28 @@ Follow these instructions to contribute to this project.
 
 ### Initialize your Development Environment
 
+Prerequisites:
+
+- Python 3.10+
+- [uv](https://docs.astral.sh/uv/)
+
 ```bash
-pipx install poetry
-poetry install
+uv sync
 ```
 
 ### Create and Run Tests
 
 Create tests within the `tests` subfolder and
-  then run:
+then run:
 
 ```bash
-poetry run pytest
+uv run pytest
 ```
 
-You can also test the `tap-msaccess` CLI interface directly using `poetry run`:
+You can also test the `tap-msaccess` CLI interface directly using `uv run`:
 
 ```bash
-poetry run tap-msaccess --help
+uv run tap-msaccess --help
 ```
 
 ### Testing with [Meltano](https://www.meltano.com)
@@ -148,23 +152,17 @@ poetry run tap-msaccess --help
 _**Note:** This tap will work in any Singer environment and does not require Meltano.
 Examples here are for convenience and to streamline end-to-end orchestration scenarios._
 
-Next, install Meltano (if you haven't already) and any needed plugins:
+Use Meltano to run an EL pipeline:
 
 ```bash
 # Install meltano
-pipx install meltano
-# Initialize meltano within this directory
-cd tap-msaccess
-meltano install
-```
+uv tool install meltano
 
-Now you can test and orchestrate using Meltano:
-
-```bash
-# Test invocation:
+# Test invocation
 meltano invoke tap-msaccess --version
-# OR run a test `elt` pipeline:
-meltano elt tap-msaccess target-jsonl
+
+# Run a test EL pipeline
+meltano run tap-msaccess target-jsonl
 ```
 
 ### SDK Dev Guide

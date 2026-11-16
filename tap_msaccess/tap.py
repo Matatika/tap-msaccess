@@ -28,8 +28,7 @@ class TapMSAccess(Tap):
             th.StringType(pattern=r"\.(accdb)|(mdb)$"),
             required=True,
             description=(
-                "Local path or URL to a Microsoft Access database `.mdb` or `.accdb` "
-                "file"
+                "Local path or URL to a Microsoft Access database `.mdb` or `.accdb` file"
             ),
         ),
         th.Property(
@@ -93,7 +92,7 @@ class TapMSAccess(Tap):
         return stream
 
 
-def _parse_jsonschema_type(type_id: int) -> th.JSONTypeHelper:
+def _parse_jsonschema_type(type_id: int) -> type[th.JSONTypeHelper]:
     if type_id is access_parser.utils.TYPE_BOOLEAN:
         return th.BooleanType
 

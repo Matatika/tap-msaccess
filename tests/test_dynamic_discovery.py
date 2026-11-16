@@ -2,10 +2,16 @@
 
 """Tests tap dynamic discovery."""
 
+import sys
 from itertools import zip_longest
 
 import singer_sdk.typing as th
 from singer_sdk.testing.templates import TapTestTemplate
+
+if sys.version_info >= (3, 12):
+    from typing import override
+else:
+    from typing_extensions import override
 
 
 class TapDynamicDiscoveryTest(TapTestTemplate):
@@ -13,6 +19,7 @@ class TapDynamicDiscoveryTest(TapTestTemplate):
 
     name = "dynamic_discovery"
 
+    @override
     def test(self):  # noqa: PLR0915
         """Assert each discovered stream in order, with its keys and schema."""
         streams = iter(self.tap.discover_streams())

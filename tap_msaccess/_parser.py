@@ -2,9 +2,15 @@
 
 """MSAccess database file parser."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import access_parser.utils as access_parser_utils
 from access_parser import access_parser
-from fsspec.core import OpenFile
+
+if TYPE_CHECKING:
+    from fsspec.core import OpenFile
 
 
 class AccessParser(access_parser.AccessParser):
